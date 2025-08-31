@@ -28,11 +28,33 @@ public class J01DuplicateNumber {
         return -1;
     }
 
+    // Approach 3: Floyd's Cycle Detection (Most Optimal)
+    public static int usingFloydCycle(int[] arr) {
+        int slow = arr[0];
+        int fast = arr[0];
+
+        do {
+            slow = arr[slow];
+            fast = arr[arr[fast]];
+        } while (slow != fast);
+
+        // Find the entrance to the cycle
+        slow = arr[0];
+        while (slow != fast) {
+            slow = arr[slow];
+            fast = arr[fast];
+        }
+        return slow;
+    }
+
     public static void main(String args[]) {
         int arr[] = { 1, 3, 4, 2, 2 };
         System.out.println("Duplicate value is : " + usingHashSet(arr));
 
         int arr2[] = { 3, 1, 3, 4, 2 };
         System.out.println("Duplicate value is : " + usingNegativeMarking(arr2));
+
+        int arr3[] = { 1, 3, 4, 2, 2 };
+        System.out.println("Duplicate value is : " + usingFloydCycle(arr3));
     }
 }
